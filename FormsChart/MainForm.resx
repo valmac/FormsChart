@@ -117,4 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>ЗАДАНИЕ:
+Создайте 2 формы. В первой должны располагаться компоненты лоя изменения параметров функциию.
+Во второй Chart.
+Построить графики функции при разных параметрах:
+Ro=A/Fi + B
+Ro это греческая буква.
+Fi это тоже греческа буква.
+A и B это параметры числовые.
+Fi изменяется от 0 до 360</value>
+  </data>
 </root>

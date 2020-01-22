@@ -21,6 +21,9 @@ namespace FormsChart
 		/// </summary>
 		private Form2 _chartForm;
 		
+		/// <summary>
+		/// метод вычисления функции Ro
+		/// </summary>
 		private IRoCalculator _calculator;
 		
 		public MainForm()
@@ -29,7 +32,7 @@ namespace FormsChart
 		}
 		
 		/// <summary>
-		/// Событие загрузки главной формы
+		/// Метод обработки события загрузки главной формы
 		/// </summary>
 		/// <param name="e"></param>
 		protected override void OnLoad(EventArgs e)
@@ -50,39 +53,41 @@ namespace FormsChart
 			_chartForm.Location =  new System.Drawing.Point(Location.X + this.Size.Width, Location.Y);
 		}
 		
+		/// <summary>
+		/// Метод обработки события клика по кнопке "Построить график"
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void btDrawChartClick(object sender, EventArgs e)
 		{
-			if(!IsInputOk())
-			{
-				MessageBox.Show("Некорректный параметр", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				return;
-			}
-			
+			// формируем наименование серии
 			string seriesName = string.Concat ("Ro=", nudA.Value.ToString("F1"),
-			                                   "/(", nudF.Value.ToString("F1"),
-			                                   "*i) + ", nudB.Value.ToString("F1"));
-			_chartForm.ClearChart(seriesName);
+			                                   "/Fi ", 
+			                                   nudB.Value >0 ? "+":string.Empty,
+			                                   nudB.Value.ToString("F1"));
 			
-			_calculator = new RoCalculator((float) nudA.Value, (float) nudF.Value, (float) nudB.Value);
+			// подготавливаем серию на второй форме (с графиком)
+			_chartForm.SetUpChart(seriesName);
 			
-			float min = (float) nudMin.Value;
-			float max = (float) nudMax.Value;
-			float step = (float) nudStep.Value;
+			// создаем калькулятор для расчета функции
+			_calculator = new RoCalculator((float) nudA.Value, (float) nudB.Value);
 			
-			float value = float.NaN;
+			// переменная для значений ro			
+			float ro = float.NaN;
 			
-			for(float arg = min; arg < max; arg += step)
+			// шаг расчета
+			float step = 0.1f;
+			
+			// цикл расчета
+			for(float fi = 0f; fi < 360f; fi += step)
 			{
-				if(_calculator.TryCalcRo(arg, out value))
+				// расчет был успешным ?
+				if(_calculator.TryCalcRo(fi, out ro))
 				{
-					_chartForm.AddPoint(arg, value);
+					// добавим значение на вторую форму (с графиком)
+					_chartForm.AddPoint(fi, ro);
 				}
 			}
-		}
-		
-		private bool IsInputOk()
-		{
-			return nudF.Value != 0m;
 		}
 	}
 }

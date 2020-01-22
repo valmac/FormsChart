@@ -105,7 +105,7 @@ namespace FormsChart
 			this.ClientSize = new System.Drawing.Size(437, 389);
 			this.Controls.Add(this.splitContainer1);
 			this.Name = "Form2";
-			this.Text = "TwinForms: Form2";
+			this.Text = "FormsChart: Form2";
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

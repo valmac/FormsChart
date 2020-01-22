@@ -11,35 +11,29 @@ using System;
 namespace FormsChart
 {
 	/// <summary>
-	/// Description of RoCalculator.
+	/// Класс RoCalculator  - это простейшая имплементация интерфейса IRoCalculator 
 	/// </summary>
 	public class RoCalculator : IRoCalculator
 	{
-		private readonly float _a;
-		private readonly float _f;
-		private readonly float _b;
+		public float A {get; private set;}
 		
+		public float B {get; private set;}
 		
-		public RoCalculator(float a, float f, float b)
+		public RoCalculator(float a,  float b)
 		{
-			if(f.Equals(0))
-				throw new ArgumentException("F can't be zero");
-			
-			_a = a;
-			_f = f;
-			_b = b;
+			A = a;
+			B = b;
 		}
 		
-		public bool TryCalcRo(float arg, out float value)
+		public bool TryCalcRo(float fi, out float ro)
 		{
-			if(arg.Equals(0))
+			if(fi.Equals(0))
 			{
-				value = float.NaN;
+				ro = float.NaN;
 				return false;
 			}
 			
-			value = _a / (_f * arg) + _b;
-			
+			ro = A / fi  + B;
 			return true;
 		}
 	}

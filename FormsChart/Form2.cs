@@ -28,16 +28,16 @@ namespace FormsChart
 		protected override void OnLoad(EventArgs e)
 		{
 			chart.Series.Clear();
-			chart.Titles.Add("График функции:\nRo=A/(F*i) + B" );
+			chart.Titles.Add("График функции:\nRo=A/Fi + B" );
 		}
 		
-		internal void ClearChart(string seriesName)
+		internal void SetUpChart(string seriesName)
 		{
 			chart.Series.Clear();
 			
 			_series = chart.Series.Add(seriesName);
 			_series.Color = System.Drawing.Color.Red;
-			_series.ChartType = SeriesChartType.Spline;
+			_series.ChartType = SeriesChartType.Polar;
 		}
 		
 		internal void AddPoint(float x, float y)
